@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Denmark Entities · Explorer</title>
+
+    <!-- Base map (MapLibre GL, no access token required) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/maplibre-gl@4/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4/dist/maplibre-gl.js"></script>
+
+    <!-- deck.gl standalone scripting bundle (exposes global `deck`) -->
+    <script src="https://cdn.jsdelivr.net/npm/deck.gl@9/dist.min.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <div class="overlay-panel controls-panel" id="controls-panel">
+      <button
+        id="toggle-controls"
+        class="controls-toggle"
+        type="button"
+        aria-controls="controls-body"
+        aria-expanded="true"
+      >
+        <span>Search &amp; filters</span>
+        <span class="chevron">⌄</span>
+      </button>
+
+      <div class="controls-body" id="controls-body">
+        <div class="field">
+        <label for="search">Search name or location</label>
+        <input
+          id="search"
+          type="search"
+          placeholder="e.g. Novo, København, 8000…"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="price-min">Price min</label>
+          <input
+            id="price-min"
+            type="text"
+            inputmode="decimal"
+            autocomplete="off"
+            placeholder="Any"
+          />
+        </div>
+        <div class="field">
+          <label for="price-max">Price max</label>
+          <input
+            id="price-max"
+            type="text"
+            inputmode="decimal"
+            autocomplete="off"
+            placeholder="Any"
+          />
+        </div>
+      </div>
+      <div class="field-hint" id="price-hint">&nbsp;</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="emp-min">Employees min</label>
+          <input
+            id="emp-min"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="Any"
+          />
+        </div>
+        <div class="field">
+          <label for="emp-max">Employees max</label>
+          <input
+            id="emp-max"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="Any"
+          />
+        </div>
+      </div>
+      <div class="field-hint" id="emp-hint">&nbsp;</div>
+
+      <div class="controls-actions">
+        <button id="zoom-matches" type="button">Zoom to matches</button>
+        <button id="reset-filters" type="button" class="secondary">Reset</button>
+      </div>
+        <button id="view-table" type="button" class="view-table-btn">
+          View as table
+        </button>
+      </div>
+    </div>
+
+    <div class="overlay-panel status-panel" id="status">
+      <span class="spinner"></span>
+      <span>Loading data…</span>
+    </div>
+
+    <div id="table-view" class="table-view hidden">
+      <div class="table-view-header">
+        <h2><span id="table-count">0</span> entities</h2>
+        <button id="close-table" type="button" class="secondary">
+          ← Back to map
+        </button>
+      </div>
+      <div class="table-view-body">
+        <table>
+          <thead id="table-head"></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+        <p id="table-note" class="table-note"></p>
+      </div>
+    </div>
+
+    <script type="module" src="js/landing.js"></script>
+  </body>
+</html>
