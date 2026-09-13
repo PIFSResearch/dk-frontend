@@ -84,13 +84,6 @@ const TABLE_COLUMNS = [
     render: (p) => (cityText(p) ? escapeHtml(cityText(p)) : "—"),
   },
   {
-    key: "employees",
-    label: "Employees",
-    numeric: true,
-    get: (p) => p.employees,
-    render: (p) => (p.employees !== null ? formatNumber(p.employees) : "—"),
-  },
-  {
     key: "price",
     label: "Price",
     numeric: true,
