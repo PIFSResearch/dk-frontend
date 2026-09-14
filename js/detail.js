@@ -103,7 +103,7 @@ function render(cvr, filings) {
     <header class="entity-header">
       <h1>${escapeHtml(latest.name || "Unknown entity")}</h1>
       <div class="subtitle">
-        CVR ${cvr}${address ? " · " + escapeHtml(address) : ""}
+      <span title="Danish company registration number (CVR)" style="cursor: help; text-decoration: underline dotted;">CVR</span> ${cvr}${address ? " · " + escapeHtml(address) : ""}
       </div>
     </header>
 
