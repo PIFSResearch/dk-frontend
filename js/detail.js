@@ -110,7 +110,7 @@ function render(cvr, filings) {
     <div class="badges">${badges}</div>
 
     <section class="card">
-      <h2>Price over time</h2>
+      <h2>Valuation over time</h2>
       <div class="chart-wrap"><canvas id="price-chart"></canvas></div>
     </section>
 
@@ -124,14 +124,14 @@ function render(cvr, filings) {
             <th>Debt</th>
             <th>Cash</th>
             <th>Net income</th>
-            <th>Price</th>
+            <th>Valuation</th>
             <th>Multiple</th>
           </tr>
         </thead>
         <tbody id="history-body">${tableRows}</tbody>
       </table>
       <p style="font-size:12px;color:var(--text-muted);margin:12px 0 0">
-        Monetary values shown in U.S. dollars (USD). For public companies, the multiple is set to 0, and price represents the market capitalization closest to the filing date. Click a row to open its
+        Monetary values shown in U.S. dollars (USD). For public companies, the multiple is set to 0, and valuation represents the market capitalization closest to the filing date. Click a row to open its
         filing.
       </p>
     </section>
@@ -160,7 +160,7 @@ function renderChart(filings) {
       labels,
       datasets: [
         {
-          label: "Price",
+          label: "Valuation",
           data,
           backgroundColor: "#4f8cff",
           hoverBackgroundColor: "#7aa9ff",
@@ -179,7 +179,7 @@ function renderChart(filings) {
             label: (item) =>
               item.raw === null || item.raw === undefined
                 ? "No data"
-                : `Price: ${formatCurrency(item.raw)}`,
+                : `Valuation: ${formatCurrency(item.raw)}`,
           },
         },
       },
