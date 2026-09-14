@@ -72,7 +72,7 @@ function render(cvr, filings) {
     latest.filingUrl
       ? `<span class="badge"><a href="${encodeURI(
           latest.filingUrl
-        )}" target="_blank" rel="noopener">Latest filing ↗</a></span>`
+                )}" target="_blank" rel="noopener" title="Open the company's financial filing in XBRL/XML, a standardized electronic format for reporting structured financial data.">Latest filing ↗</a></span>`
       : "",
     `<span class="badge">Filings <strong>${filings.length}</strong></span>`,
   ]
