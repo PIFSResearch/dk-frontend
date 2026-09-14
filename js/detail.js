@@ -125,14 +125,13 @@ function render(cvr, filings) {
             <th>Cash</th>
             <th>Net income</th>
             <th>Valuation</th>
-            <th>Multiple</th>
+            <th title="The multiple is estimated using a linear model relating public companies' market capitalization-to-assets ratios to their profitability and leverage. When multiplied by total assets, it gives the company's valuation." style="cursor: help; text-decoration: underline dotted;">Multiple</th>
           </tr>
         </thead>
         <tbody id="history-body">${tableRows}</tbody>
       </table>
       <p style="font-size:12px;color:var(--text-muted);margin:12px 0 0">
-        Monetary values shown in U.S. dollars (USD). For public companies, the multiple is set to 0, and valuation represents the market capitalization closest to the filing date. Click a row to open its
-        filing.
+        Monetary values are shown in U.S. dollars (USD). For public companies, the multiple is set to 0, and valuation represents the market capitalization closest to the filing date. Click a row to open its financial filing in XBRL/XML, a standardized electronic format for reporting structured financial data.
       </p>
     </section>
   `;
