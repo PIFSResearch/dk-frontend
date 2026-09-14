@@ -85,7 +85,7 @@ const TABLE_COLUMNS = [
   },
   {
     key: "price",
-    label: "Price",
+    label: "Valuation",
     numeric: true,
     get: (p) => p.price,
     render: (p) => (p.price !== null ? formatCurrency(p.price) : "—"),
