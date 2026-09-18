@@ -227,7 +227,6 @@ function updateHints() {
   setRangeHint("price-hint", allPoints, (p) => p.price, {
     example: "e.g. 20M",
   });
-  setRangeHint("emp-hint", allPoints, (p) => p.employees, { example: "" });
 }
 
 function setRangeHint(id, points, accessor, { example }) {
@@ -253,8 +252,6 @@ function getControls() {
     q: document.getElementById("search").value.trim().toLowerCase(),
     priceMin: parseNum(document.getElementById("price-min").value),
     priceMax: parseNum(document.getElementById("price-max").value),
-    empMin: parseNum(document.getElementById("emp-min").value),
-    empMax: parseNum(document.getElementById("emp-max").value),
   };
 }
 
@@ -274,7 +271,7 @@ function matchesSearch(point, q) {
 }
 
 function applyFilters() {
-  const { q, priceMin, priceMax, empMin, empMax } = getControls();
+  const { q, priceMin, priceMax } = getControls();
 
   filtered = allPoints.filter((p) => {
     if (!matchesSearch(p, q)) return false;
@@ -283,8 +280,6 @@ function applyFilters() {
     // bound, so it's excluded when that bound is set.
     if (priceMin !== null && (p.price === null || p.price < priceMin)) return false;
     if (priceMax !== null && (p.price === null || p.price > priceMax)) return false;
-    if (empMin !== null && (p.employees === null || p.employees < empMin)) return false;
-    if (empMax !== null && (p.employees === null || p.employees > empMax)) return false;
 
     return true;
   });
@@ -375,14 +370,14 @@ function hideTable() {
 }
 
 function resetFilters() {
-  for (const id of ["search", "price-min", "price-max", "emp-min", "emp-max"]) {
+  for (const id of ["search", "price-min", "price-max"]) {
     document.getElementById(id).value = "";
   }
   applyFilters();
 }
 
 function wireControls() {
-  for (const id of ["search", "price-min", "price-max", "emp-min", "emp-max"]) {
+  for (const id of ["search", "price-min", "price-max"]) {
     document.getElementById(id).addEventListener("input", scheduleFilter);
   }
 
