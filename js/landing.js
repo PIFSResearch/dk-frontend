@@ -10,7 +10,7 @@ import {
   formatCurrency,
 } from "./data.js";
 
-const { DeckGL, IconLayer, WebMercatorViewport, FlyToInterpolator } = deck;
+const { DeckGL, IconLayer, ScatterplotLayer, WebMercatorViewport, FlyToInterpolator } = deck;
 
 // A teardrop pin, inlined as an SVG data URL so there are no extra assets to
 // host. `mask: false` tells deck.gl to render the SVG's own colors.
@@ -35,6 +35,7 @@ const statusEl = document.getElementById("status");
 
 // Module-level state.
 let deckgl;
+let userLocation = null;
 let viewState = INITIAL_VIEW_STATE;
 let allPoints = []; // newest filing per CVR, with coordinates
 let filtered = [];
@@ -171,7 +172,25 @@ function buildLayer(data) {
 }
 
 function updateLayer() {
-  deckgl.setProps({ layers: [buildLayer(filtered)] });
+  const layers = [buildLayer(filtered)];
+
+  if (userLocation) {
+    layers.push(new ScatterplotLayer({
+      id: "user-location",
+      data: [userLocation],
+      getPosition: (d) => [d.longitude, d.latitude],
+      getRadius: 9,
+      radiusUnits: "pixels",
+      getFillColor: [0, 210, 180, 255],
+      stroked: true,
+      getLineColor: [255, 255, 255, 255],
+      getLineWidth: 2,
+      lineWidthUnits: "pixels",
+      pickable: false,
+    }));
+  }
+
+  deckgl.setProps({ layers });
 }
 
 function updateStatus() {
@@ -376,7 +395,57 @@ function resetFilters() {
   applyFilters();
 }
 
+function locateUser() {
+  const button = document.getElementById("use-location");
+  const message = document.getElementById("location-status");
+
+  if (!navigator.geolocation) {
+    message.textContent = "Location is not supported by this browser.";
+    return;
+  }
+
+  button.disabled = true;
+  message.textContent = "Finding your location…";
+
+  navigator.geolocation.getCurrentPosition(
+    ({ coords }) => {
+      button.disabled = false;
+      userLocation = {
+        longitude: coords.longitude,
+        latitude: coords.latitude,
+      };
+
+      updateLayer();
+      setViewState({
+        ...viewState,
+        ...userLocation,
+        zoom: 13,
+        transitionDuration: 800,
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+
+      message.textContent =
+        `Your location is marked in green (accuracy about ${Math.round(coords.accuracy)} m). Company coverage is Denmark.`;
+    },
+    (error) => {
+      button.disabled = false;
+      message.textContent =
+        error.code === 1
+          ? "Location permission was denied. Allow location access in your browser to try again."
+          : error.code === 3
+            ? "Finding your location took too long. Please try again."
+            : "Your location is unavailable. Please try again.";
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 60000,
+    }
+  );
+}
+
 function wireControls() {
+  document.getElementById("use-location").addEventListener("click", locateUser);
   for (const id of ["search", "price-min", "price-max"]) {
     document.getElementById(id).addEventListener("input", scheduleFilter);
   }
