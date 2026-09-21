@@ -424,8 +424,7 @@ function locateUser() {
         transitionInterpolator: new FlyToInterpolator(),
       });
 
-      message.textContent =
-        `Your location is marked in green.`;
+      message.textContent = `Your location is marked in green.`;
     },
     (error) => {
       button.disabled = false;
