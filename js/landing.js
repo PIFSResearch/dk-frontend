@@ -425,7 +425,7 @@ function locateUser() {
       });
 
       message.textContent =
-        `Your location is marked in green (accuracy about ${Math.round(coords.accuracy)} m). Company coverage is Denmark.`;
+        `Your location is marked in green.`;
     },
     (error) => {
       button.disabled = false;
