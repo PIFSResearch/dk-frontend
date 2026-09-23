@@ -526,7 +526,6 @@ async function main() {
         )}</div>
           <div>CVR ${object.cvr}</div>
           ${address ? `<div>${escapeHtml(address)}</div>` : ""}
-          ${employees ? `<div>${employees}</div>` : ""}
           ${price ? `<div>${price}</div>` : ""}
           <div style="opacity:.7;margin-top:4px">Click for details →</div>`,
         style: {
