@@ -64,11 +64,6 @@ function render(cvr, filings) {
   document.title = `${latest.name || "CVR " + cvr} · Denmark Explorer`;
 
   const badges = [
-    latest.employees !== null
-      ? `<span class="badge">Employees <strong>${formatNumber(
-          latest.employees
-        )}</strong></span>`
-      : "",
     latest.filingUrl
       ? `<span class="badge"><a href="${encodeURI(
           latest.filingUrl
