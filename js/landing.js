@@ -519,7 +519,7 @@ async function main() {
           ? `Employees: ${formatNumber(object.employees)}`
           : "";
       const price =
-        object.price !== null ? `Price: ${formatCurrency(object.price)}` : "";
+        object.price !== null ? `Valuation: ${formatCurrency(object.price)}` : "";
       return {
         html: `<div style="font-weight:600">${escapeHtml(
           object.name || "Unknown"
